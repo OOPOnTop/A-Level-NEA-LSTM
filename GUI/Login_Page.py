@@ -130,11 +130,11 @@ class SignUPScreen(ctk.CTkFrame):
         self.pword_show = False
         self.confirm_pword_show = False
 
-        self.title_lable = ctk.CTkLabel(self, text_color=settings.NO_BG_TEXT_COL,
+        self.title_label = ctk.CTkLabel(self, text_color=settings.NO_BG_TEXT_COL,
                                         font=(settings.PRIMARY_FAMILY, 20, 'bold'), state="normal", fg_color='transparent',
-                                        placeholder_text='Name', placeholder_text_color=settings.NO_BG_TEXT_COL, width=340)
+                                        width=340)
 
-        self.title_lable.grid(row=0, column=0, columnspan=2, pady=5)
+        self.title_label.grid(row=0, column=0, columnspan=2, pady=5)
 
         # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         self.name_input = ctk.CTkEntry(self, text_color=settings.NO_BG_TEXT_COL, font=(settings.PRIMARY_FAMILY, 20, 'bold'),

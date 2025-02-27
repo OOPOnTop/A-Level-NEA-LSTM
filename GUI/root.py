@@ -9,7 +9,7 @@ from Spotify_API_query import APICalls
 class MusicApp(ctk.CTk):
     def __init__(self):
         ctk.CTk.__init__(self)
-        self.iconbitmap(self, default="icon.ico")
+        #self.iconbitmap(self, "icon.ico")
         self.geometry('480x210')
         self.title(settings.ROOT_TITLE)
 
@@ -19,7 +19,7 @@ class MusicApp(ctk.CTk):
         self.rowconfigure(0, weight=0)
         self.columnconfigure(0, weight=0)
 
-        self.con = sqlite3.connect('Users.db')
+        self.con = sqlite3.connect('/Users/charlie/PycharmProjects/A-Level-NEA-LSTM/GUI/Users.db')
         self.cur = self.con.cursor()
         self.user_id = ''
 
@@ -27,10 +27,10 @@ class MusicApp(ctk.CTk):
                                                  (self.user_id,)).fetchone()
         self.API_caller = APICalls(self.spotify_username)
 
-        self.features = self.API_caller.recetly_played_song_features()
+        self.features = self.API_caller.recently_played_song_features()
         self.train_features = self.format_features()
 
-        self.network = LSTM(self.train_features)
+        self.network = LSTM.LSTM(self.train_features)
         self.ideal_features = []
 
         container = ctk.CTkFrame(self)
@@ -54,14 +54,13 @@ class MusicApp(ctk.CTk):
         features = []
         for i in self.features:
             song_features = []
-            feature_dict = i[1]
-            for key in feature_dict.keys():
+            for key in i.keys():
                 if key == 'Tempo':
-                    song_features.append([feature_dict[key]/1000])
+                    song_features.append([i[key]/1000])
                 elif key == 'Duration':
-                    song_features.append([feature_dict[key]/1000000])
+                    song_features.append([i[key]/1000000])
                 else:
-                    song_features.append([feature_dict[key]])
+                    song_features.append([i[key]])
             features.append(song_features)
         return features
 

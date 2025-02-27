@@ -1,12 +1,13 @@
 from typing import Dict, Union, Any
 import sqlite3
 import spotipy
+from AudioAnalysis import AudioAnalysis
 
 # Global variables
 SCOPE = 'user-read-recently-played user-read-private'  # What access the program has to users spotify accounts
 
-# For testing Class functionality
-"""USER_ID = 1
+"""# For testing Class functionality
+USER_ID = 1
 # Database connection and fetching
 con = sqlite3.connect('GUI/Users.db')
 cur = con.cursor()
@@ -29,6 +30,7 @@ class APICalls(spotipy.Spotify):
         self.played_songs = []
         self.played_songs = self.recently_played_song_artist()
         self.recently_played_features = []
+        self.analyzer = AudioAnalysis()
 
     def recently_played(self, limit=50) -> list:
         """
@@ -63,39 +65,21 @@ class APICalls(spotipy.Spotify):
         """
         Returns features from users recently played
         :return:
-        """
+
         temp_list = []
         for i in self.played_info:
             _ = [i, self.get_song_features(i[1])]
             temp_list.append(_)
         self.recently_played_features = temp_list
-        return self.recently_played_features
+        return self.recently_played_features"""
+        results = []
+        _ = self.analyzer.process_songs_parallel(self.played_songs)
+        for i in _:
+            results.append(i[-1])
+        return results
 
-    def get_song_features(self, name: str) -> dict[Union[str, Any], Any]:
-        """
-        Takes a string name to search songs and provides a dictionary with features from the song
-        :param name:
-        :return:
-        """
-        tracks = [self.search_song(name)[0]]
-        all_features = self.audio_features(tracks)
-        features = {'Danceability': all_features[0]['danceability'],
-                    'Energy': all_features[0]['energy'],
-                    "Mode": all_features[0]['mode'],
-                    "Speechiness": all_features[0]['speechiness'],
-                    "Acousticness": all_features[0]['acousticness'],
-                    "Liveness": all_features[0]['liveness'],
-                    "Valence": all_features[0]['valence'],
-                    "Tempo": all_features[0]['tempo'],
-                    "Duration": all_features[0]['duration_ms'],
-                    "Time Signature": all_features[0]['time_signature']
-                    }
-        return features
-
-    def print_song_features(self, name: str) -> any:
-        features = self.get_song_features(name)
-        for key in features:
-            print(key, " - ", features[key])
+    def get_song_features(self, artist_name, song_name) -> list:
+        return self.analyzer._process_single_song(artist_name, song_name)
 
     def search_song(self, name: str, limit=1) -> list:
         """
@@ -212,6 +196,7 @@ optimal = [[1.00345916e-01],
            [8.84974123e-02]]
 
 """calls = APICalls(username) # '31lim2ii6s23jjdsdmdcjgdxpyey'
-optimal1 = calls.get_song_features('Want U back')
-print(calls.search_by_features(optimal))
+optimal1 = calls.get_song_features('Cher LLoyd', 'Want U back')
+print(optimal1)
+# print(calls.search_by_features(optimal))
 print(calls.recently_played_song_features())"""

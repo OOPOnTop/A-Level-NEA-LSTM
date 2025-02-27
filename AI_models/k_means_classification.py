@@ -3,7 +3,6 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from sklearn.decomposition import PCA
 from IPython.display import clear_output
-import os
 
 # CONSTANTS
 K = 10

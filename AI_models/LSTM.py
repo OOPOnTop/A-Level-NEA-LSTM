@@ -10,7 +10,7 @@ LEN_HISTORY = 50  # number of LSTM cells unrolled
 np.random.seed(0)
 
 # Initiate an object for training
-k_means = KMeans(pd.read_csv("/Users/charlie/PycharmProjects/A-Level-NEA-LSTM/AI_models/Data_Assets/train_clean.csv", skiprows=1),
+k_means = KMeans(pd.read_csv("/Users/charlie/PycharmProjects/A-Level-NEA-LSTM/AI_models/Data_Assets/train_clean.csv"),
                  k=10)
 
 """
@@ -48,8 +48,8 @@ def format_data(data):
     new_data = []
     data = pd.DataFrame.to_numpy(data)
     for i in data:
-        _ = np.reshape(i, (12, 1))
-        temp1 = np.delete(_, [0, 1])
+        _ = np.reshape(i, (13, 1))
+        temp1 = np.delete(_, [0, 1, 4])
         temp1 = np.reshape(temp1, (10, 1))
         temp1[7] /= 1000
         temp1[8] /= 1000000
@@ -58,7 +58,7 @@ def format_data(data):
     return new_data
 
 
-DATA = pd.read_csv("/Users/charlie/PycharmProjects/A-Level-NEA-LSTM/AI_models/Data_Assets/train_clean.csv", skiprows=1)
+DATA = pd.read_csv("/Users/charlie/PycharmProjects/A-Level-NEA-LSTM/AI_models/Data_Assets/train_clean.csv")
 DATA = format_data(DATA)
 
 

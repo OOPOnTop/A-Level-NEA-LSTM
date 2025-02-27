@@ -28,7 +28,7 @@ class UploadFrame(ctk.CTkFrame):
 
         self.upload_title.grid(row=0, column=0, columnspan=2, pady=30)
 
-        self.image = ctk.CTkImage(Image.open('privacy-step3.png'), size=(390, 450))
+        self.image = ctk.CTkImage(Image.open('/Users/charlie/PycharmProjects/A-Level-NEA-LSTM/GUI/privacy-step3.png'), size=(390, 450))
         self.explain_box_image = ctk.CTkLabel(self, text='', image = self.image)
         self.explain_box_image.grid(row=1, column=1, rowspan=4)
 
@@ -42,7 +42,7 @@ class UploadFrame(ctk.CTkFrame):
 
         self.explain_box.grid(row=1, column=0, padx=20)
 
-        self.data_image = ctk.CTkImage(Image.open('data_example.png'), size=(525, 155))
+        self.data_image = ctk.CTkImage(Image.open('/Users/charlie/PycharmProjects/A-Level-NEA-LSTM/GUI/data_example.png'), size=(525, 155))
         self.data_image_box = ctk.CTkLabel(self, text='', image=self.data_image)
         self.data_image_box.grid(row=2, column=0, padx=10)
 

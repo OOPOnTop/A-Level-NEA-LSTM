@@ -9,7 +9,7 @@ class SearchBar(ctk.CTkFrame):
     def __init__(self, parent):
         super().__init__(parent)
         self.parent = parent
-        self.query = self.parent.conroller.API_caller
+        self.query = self.parent.controller.API_caller
 
         self.configure(fg_color=settings.RECENTLY_PLAYED_COL)
         self.configure(width=800)
@@ -29,7 +29,7 @@ class SearchBar(ctk.CTkFrame):
 
         self.search_field.grid(row=0, column=0)
 
-        self.search_icon = ctk.CTkImage(Image.open('search.png'), size=(32, 32))
+        self.search_icon = ctk.CTkImage(Image.open('/Users/charlie/PycharmProjects/A-Level-NEA-LSTM/GUI/search.png'), size=(32, 32))
 
         self.search_button = ctk.CTkButton(self, image=self.search_icon, bg_color=settings.BG_COL,
                                            border_width=0, hover_color=settings.ACTIVE_BUTTON_COL,
@@ -80,7 +80,7 @@ class SearchResultsScrollable(ctk.CTkScrollableFrame):
         self.songs = []
         self.parent = parent
         self.controller = controller
-        self.query = self.controller.conroller.API_caller
+        self.query = self.controller.controller.API_caller
 
         self.configure(fg_color=settings.RECENTLY_PLAYED_COL)
 
@@ -90,7 +90,7 @@ class SearchResultsScrollable(ctk.CTkScrollableFrame):
         self.columnconfigure(0, weight=0)
         self.columnconfigure(1, weight=0)
 
-        for i in range(len(self.controller.search_bar_results) + 2):
+        for i in range(len(self.controller.search_bar.results) + 2):
             self.rowconfigure(i, weight=0)
 
     def search_results(self):
